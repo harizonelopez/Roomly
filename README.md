@@ -1,4 +1,4 @@
-# Flask Chatroom
+# Roomly 🗨️
 
 A real-time web-based chatroom application built with Flask and Socket.IO. This application allows multiple users to join different chat rooms and communicate in real-time with features like typing indicators, user lists, and message history.
 
