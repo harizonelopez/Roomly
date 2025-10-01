@@ -43,10 +43,10 @@ A real-time web-based chatroom application built with Flask and Socket.IO. This 
    python -m venv venv
    
    # On Windows
-   venv\Scripts\activate
+   `venv\Scripts\activate`
    
    # On macOS/Linux
-   source venv/bin/activate
+   `source venv/bin/activate`
    ```
 
 3. **Install required packages**
@@ -56,7 +56,7 @@ A real-time web-based chatroom application built with Flask and Socket.IO. This 
 
 4. **Run the application**
    ```bash
-   python app.py
+    python app.py
    ```
 
 5. **Access the application**
