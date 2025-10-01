@@ -4,10 +4,10 @@ import uuid
 from datetime import datetime
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your-secret-key-here'
+app.config['SECRET_KEY'] = 'ny-secret-key'
 socketio = SocketIO(app, cors_allowed_origins="*")
 
-# Store active users and rooms
+# Stored active users and rooms
 active_users = {}
 chat_rooms = {'general': {'users': [], 'messages': []}}
 
