@@ -27,8 +27,8 @@ A real-time web-based chatroom application built with Flask and Socket.IO. This 
 
 ### Prerequisites
 
-- Python 3.7+ installed on your system
-- pip (Python package manager)
+- Python 3.12.3 --> installed on your system
+- pip
 
 ### Setup Instructions
 
@@ -39,7 +39,7 @@ A real-time web-based chatroom application built with Flask and Socket.IO. This 
 
 2. **Create a virtual environment (recommended)**
    ```bash
-   python -m venv venv
+   python -m venv env
    
    # On Windows
    venv\Scripts\activate
