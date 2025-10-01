@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}Join Chatroom{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+        <div class="card shadow">
+            <div class="card-body">
+                <h2 class="card-title text-center mb-4">
+                    <i class="fas fa-comments text-primary"></i>
+                    Join Chatroom
+                </h2>
+                <form id="joinForm">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">
+                            <i class="fas fa-user"></i> Username
+                        </label>
+                        <input type="text" class="form-control" id="username" name="username" 
+                               placeholder="Enter your username" required maxlength="20">
+                        <div class="form-text">Choose a unique username (max 20 characters)</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="room" class="form-label">
+                            <i class="fas fa-door-open"></i> Room
+                        </label>
+                        <input type="text" class="form-control" id="room" name="room" 
+                               placeholder="Enter room name" value="general" required maxlength="30">
+                        <div class="form-text">Enter an existing room or create a new one (max 30 characters)</div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-lg w-100">
+                        <i class="fas fa-sign-in-alt"></i> Join Chat
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="text-center mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="fas fa-info-circle text-info"></i> How to use
+                    </h5>
+                    <ul class="list-unstyled text-start">
+                        <li><i class="fas fa-check text-success"></i> Enter your username</li>
+                        <li><i class="fas fa-check text-success"></i> Choose or create a room</li>
+                        <li><i class="fas fa-check text-success"></i> Start chatting in real-time!</li>
+                        <li><i class="fas fa-check text-success"></i> See who's typing</li>
+                        <li><i class="fas fa-check text-success"></i> View active users</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.getElementById('joinForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const username = document.getElementById('username').value.trim();
+    const room = document.getElementById('room').value.trim();
+    
+    if (username && room) {
+        // Validate username and room
+        if (username.length > 20) {
+            alert('Username must be 20 characters or less');
+            return;
+        }
+        
+        if (room.length > 30) {
+            alert('Room name must be 30 characters or less');
+            return;
+        }
+        
+        // Redirect to chat room
+        window.location.href = `/chat?username=${encodeURIComponent(username)}&room=${encodeURIComponent(room)}`;
+    } else {
+        alert('Please enter both username and room name');
+    }
+});
+
+// Auto-focus username field
+document.getElementById('username').focus();
+</script>
+{% endblock %}
