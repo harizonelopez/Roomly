@@ -9,27 +9,39 @@
             <div class="card-body">
                 <h2 class="card-title text-center mb-4">
                     <i class="fas fa-comments text-primary"></i>
-                    Join Chatroom
-                </h2>
+                    Join Roomly</h2>
+                <hr>
+                <p class="text-center">Welcome to <b><i>Roomly</i> Chatroom!</b> Please enter your details to join.</p>
+                <hr><hr>
                 <form id="joinForm">
                     <div class="mb-3">
                         <label for="username" class="form-label">
-                            <i class="fas fa-user"></i> Username
+                            <i class="fas fa-user"></i> <b>Username</b>
                         </label>
-                        <input type="text" class="form-control" id="username" name="username" 
-                               placeholder="Enter your username" required maxlength="20">
-                        <div class="form-text">Choose a unique username (max 20 characters)</div>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            id="username" 
+                            name="username" 
+                            placeholder="           ---- Enter your username ----" 
+                            required maxlength="15">
+                        <div class="form-text">Choose a unique username (max 15 characters)</div>
                     </div>
-                    
+                    <hr>
                     <div class="mb-3">
                         <label for="room" class="form-label">
-                            <i class="fas fa-door-open"></i> Room
+                            <i class="fas fa-door-open"></i> <b>Room</b>
                         </label>
-                        <input type="text" class="form-control" id="room" name="room" 
-                               placeholder="Enter room name" value="general" required maxlength="30">
-                        <div class="form-text">Enter an existing room or create a new one (max 30 characters)</div>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            id="room" 
+                            name="room" 
+                            placeholder="              ---- Enter room name ----" 
+                            required maxlength="20">
+                        <div class="form-text">Enter an existing room or create a new one (max 20 characters)</div>
                     </div>
-                    
+                    <hr>
                     <button type="submit" class="btn btn-primary btn-lg w-100">
                         <i class="fas fa-sign-in-alt"></i> Join Chat
                     </button>
@@ -45,10 +57,11 @@
                     </h5>
                     <ul class="list-unstyled text-start">
                         <li><i class="fas fa-check text-success"></i> Enter your username</li>
-                        <li><i class="fas fa-check text-success"></i> Choose or create a room</li>
+                        <li><i class="fas fa-check text-success"></i> Choose or create a room name</li>
                         <li><i class="fas fa-check text-success"></i> Start chatting in real-time!</li>
                         <li><i class="fas fa-check text-success"></i> See who's typing</li>
                         <li><i class="fas fa-check text-success"></i> View active users</li>
+                        <li><i class="fas fa-check text-success"></i> Enjoy the conversation!</li>
                     </ul>
                 </div>
             </div>
@@ -59,32 +72,32 @@
 
 {% block scripts %}
 <script>
-document.getElementById('joinForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const username = document.getElementById('username').value.trim();
-    const room = document.getElementById('room').value.trim();
-    
-    if (username && room) {
-        // Validate username and room
-        if (username.length > 20) {
-            alert('Username must be 20 characters or less');
-            return;
-        }
+    document.getElementById('joinForm').addEventListener('submit', function(e) {
+        e.preventDefault();
         
-        if (room.length > 30) {
-            alert('Room name must be 30 characters or less');
-            return;
-        }
+        const username = document.getElementById('username').value.trim();
+        const room = document.getElementById('room').value.trim();
         
-        // Redirect to chat room
-        window.location.href = `/chat?username=${encodeURIComponent(username)}&room=${encodeURIComponent(room)}`;
-    } else {
-        alert('Please enter both username and room name');
-    }
-});
+        if (username && room) {
+            // Validation of username and room-name lengths
+            if (username.length > 20) {
+                alert('Username must be 15 characters or less');
+                return;
+            }
+            
+            if (room.length > 20) {
+                alert('Room name must be 20 characters or less');
+                return;
+            }
+            
+            // Redirection to the chat room
+            window.location.href = `/chat?username=${encodeURIComponent(username)}&room=${encodeURIComponent(room)}`;
+        } else {
+            alert('Please, Enter both username and room name');
+        }
+    });
 
-// Auto-focus username field
-document.getElementById('username').focus();
+    // Auto-focus of the username field
+    document.getElementById('username').focus();
 </script>
 {% endblock %}
