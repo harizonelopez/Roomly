@@ -44,6 +44,10 @@
             <!-- Message Input Area -->
             <div class="chat-input-area">
                 <div class="input-container">
+                    <button id="emojiButton" class="emoji-button" type="button">
+                        <i class="fas fa-smile"></i>
+                    </button>
+                    
                     <input 
                         type="text" 
                         id="messageInput" 
@@ -54,6 +58,17 @@
                     <button id="sendButton" class="send-button" type="button" disabled>
                         <i class="fas fa-paper-plane"></i>
                     </button>
+                </div>
+                
+                <!-- Emoji Picker -->
+                <div id="emojiPicker" class="emoji-picker" style="display: none;">
+                    <div class="emoji-picker-header">
+                        <span>Pick an emoji</span>
+                        <button id="closeEmojiPicker" class="close-emoji-btn">&times;</button>
+                    </div>
+                    <div class="emoji-grid" id="emojiGrid">
+                        <!-- Emojis will be populated by JavaScript -->
+                    </div>
                 </div>
                 <div class="input-hint">
                     <small>Press Enter to send • Max 200 characters</small>
