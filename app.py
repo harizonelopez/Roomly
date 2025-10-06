@@ -5,7 +5,7 @@ from datetime import datetime
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'Trump&&Elon-key'
-socketio = SocketIO(app, cors_allowed_origins="*")
+socketio = SocketIO(app, cors_allowed_origins="*", async_mode='threading')
 
 # Storage of active users and rooms
 active_users = {}
@@ -27,7 +27,7 @@ def on_connect():
 
 @socketio.on('disconnect')
 def on_disconnect():
-    print(f'Client {request.sid} disconnected successfully')
+    print(f'Client {request.sid} disconnected')
     # Remove user from active users and rooms
     if request.sid in active_users:
         user_info = active_users[request.sid]

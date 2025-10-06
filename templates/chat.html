@@ -3,49 +3,60 @@
 {% block title %}{{ room }} - Chatroom{% endblock %}
 
 {% block content %}
-<div class="row h-100">
+<div class="row h-100 g-3">
     <!-- Chat Messages Area -->
     <div class="col-md-9">
-        <div class="card h-100">
-            <div class="card-header bg-primary text-white">
-                <h5 class="mb-0">
-                    <i class="fas fa-comments"></i> 
-                     Room name: <strong>{{ room }}</strong>
-                    <span 
-                        class="badge bg-light text-primary ms-2" 
-                        id="connectionStatus">
-                            Connecting...
+        <div class="chat-container">
+            <div class="chat-header">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center">
+                        <div class="room-icon">
+                            <i class="fas fa-hashtag"></i>
+                        </div>
+                        <div class="room-info">
+                            <h6 class="room-name mb-0">{{ room }}</h6>
+                            <small class="room-subtitle">Chat Room</small>
+                        </div>
+                    </div>
+                    <span class="connection-status" id="connectionStatus">
+                        <i class="fas fa-circle"></i> Connecting...
                     </span>
-                </h5>
+                </div>
             </div>
             
-            <div class="card-body d-flex flex-column p-0">
+            <div class="chat-body">
                 <!-- Messages Container -->
-                <div id="messages" class="flex-grow-1 p-3 overflow-auto">
+                <div id="messages" class="messages-area">
                     <!-- Messages to be added here dynamically -->
                 </div>
                 
                 <!-- Typing Indicator -->
-                <div id="typingIndicator" class="px-3 py-1 text-muted small" style="display: none;">
-                    <i class="fas fa-ellipsis-h fa-pulse"></i>
-                    <span id="typingText"></span>
-                </div>
-                
-                <!-- Message Input Area -->
-                <div class="border-top p-3">
-                    <div class="input-group">
-                        <input 
-                            type="text" 
-                            id="messageInput" 
-                            class="form-control" 
-                            placeholder="Type a message" 
-                            maxlength="200" disabled>
-
-                        <button id="sendButton" class="btn btn-primary" type="button" disabled>
-                            <i class="fas fa-paper-plane"></i> Send 
-                        </button> <!--to be added at the bottom & increase the height-->
+                <div id="typingIndicator" class="typing-indicator" style="display: none;">
+                    <div class="typing-bubble">
+                        <div class="typing-dots">
+                            <span></span><span></span><span></span>
+                        </div>
+                        <span id="typingText" class="typing-text"></span>
                     </div>
-                    <small class="text-muted">Press Enter to send • Max 200 characters</small>
+                </div>
+            </div>
+                
+            <!-- Message Input Area -->
+            <div class="chat-input-area">
+                <div class="input-container">
+                    <input 
+                        type="text" 
+                        id="messageInput" 
+                        class="message-input" 
+                        placeholder="Type your message..." 
+                        maxlength="200" disabled>
+
+                    <button id="sendButton" class="send-button" type="button" disabled>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+                <div class="input-hint">
+                    <small>Press Enter to send • Max 200 characters</small>
                 </div>
             </div>
         </div>
@@ -53,27 +64,34 @@
     
     <!-- Sidebar -->
     <div class="col-md-3">
-        <div class="card h-100">
-            <div class="card-header bg-secondary text-white">
-                <h6 class="mb-0">
-                    <i class="fas fa-users"></i> 
-                     Online Users (<span id="userCount">0</span>)
-                </h6>
+        <div class="sidebar-container">
+            <div class="sidebar-header">
+                <div class="sidebar-title">
+                    <i class="fas fa-users"></i>
+                    <span>Online</span>
+                    <span class="user-count" id="userCount">0</span>
+                </div>
             </div>
-            <div class="card-body">
-                <div id="usersList" class="list-group list-group-flush">
+            
+            <div class="sidebar-body">
+                <div id="usersList" class="users-list">
                     <!-- Users to be added here dynamically -->
                 </div>
             </div>
             
-            <div class="card-footer">
-                <div class="mb-2">
-                    <small class="text-muted">
-                        <i class="fas fa-user"></i> You: <strong>{{ username }}</strong>
-                    </small>
+            <div class="sidebar-footer">
+                <div class="current-user">
+                    <div class="user-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="user-details">
+                        <div class="username">{{ username }}</div>
+                        <div class="user-status">Online</div>
+                    </div>
                 </div>
-                <button id="leaveButton" class="btn btn-danger btn-sm w-100">
-                    <i class="fas fa-sign-out-alt"></i> Leave Room
+                <button id="leaveButton" class="leave-button">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Leave Room</span>
                 </button>
             </div>
         </div>

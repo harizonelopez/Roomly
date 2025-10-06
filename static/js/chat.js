@@ -33,11 +33,23 @@ class ChatApp {
     }
 
     initializeSocket() {
-        this.socket = io();
+        console.log('Initializing Socket.IO connection...');
+        
+        // Initialize socket with debugging
+        this.socket = io({
+            transports: ['websocket', 'polling'],
+            timeout: 10000,
+            reconnection: true,
+            reconnectionAttempts: 5,
+            reconnectionDelay: 1000
+        });
         
         // Socket event listeners
         this.socket.on('connect', () => this.onConnect());
-        this.socket.on('disconnect', () => this.onDisconnect());
+        this.socket.on('disconnect', (reason) => this.onDisconnect(reason));
+        this.socket.on('connect_error', (error) => this.onConnectError(error));
+        this.socket.on('reconnect', (attemptNumber) => this.onReconnect(attemptNumber));
+        this.socket.on('reconnect_failed', () => this.onReconnectFailed());
         this.socket.on('message', (data) => this.onMessage(data));
         this.socket.on('user_joined', (data) => this.onUserJoined(data));
         this.socket.on('user_left', (data) => this.onUserLeft(data));
@@ -85,10 +97,26 @@ class ChatApp {
         });
     }
 
-    onDisconnect() {
-        console.log('Disconnected from server');
+    onDisconnect(reason) {
+        console.log('Disconnected from server:', reason);
         this.updateConnectionStatus('Disconnected', 'status-disconnected');
         this.disableInput();
+    }
+
+    onConnectError(error) {
+        console.error('Connection error:', error);
+        this.updateConnectionStatus('Connection Error', 'status-disconnected');
+        this.disableInput();
+    }
+
+    onReconnect(attemptNumber) {
+        console.log('Reconnected after', attemptNumber, 'attempts');
+        this.updateConnectionStatus('Reconnected', 'status-connected');
+    }
+
+    onReconnectFailed() {
+        console.error('Failed to reconnect to server');
+        this.updateConnectionStatus('Connection Failed', 'status-disconnected');
     }
 
     onMessage(data) {
@@ -156,8 +184,64 @@ class ChatApp {
             <span class="message-timestamp">${timestamp}</span>
         `;
         
+        // Add initial animation class
+        messageDiv.style.opacity = '0';
+        messageDiv.style.transform = 'translateY(10px)';
+        messageDiv.style.cursor = 'pointer';
+        messageDiv.title = 'Click to dismiss';
+        
+        // Add click to dismiss functionality
+        messageDiv.addEventListener('click', () => {
+            this.removeSystemMessage(messageDiv);
+        });
+        
         this.messagesContainer.appendChild(messageDiv);
         this.scrollToBottom();
+        
+        // Animate in
+        setTimeout(() => {
+            messageDiv.style.transition = 'all 0.3s ease';
+            messageDiv.style.opacity = '1';
+            messageDiv.style.transform = 'translateY(0)';
+        }, 50);
+        
+        // Auto-disappear after 5 seconds
+        const autoRemoveTimeout = setTimeout(() => {
+            this.removeSystemMessage(messageDiv);
+        }, 5000);
+        
+        // Store timeout reference so we can clear it if manually dismissed
+        messageDiv.autoRemoveTimeout = autoRemoveTimeout;
+    }
+
+    removeSystemMessage(messageElement) {
+        if (messageElement && messageElement.parentNode) {
+            // Clear auto-remove timeout if it exists
+            if (messageElement.autoRemoveTimeout) {
+                clearTimeout(messageElement.autoRemoveTimeout);
+            }
+            
+            // Add fade-out animation
+            messageElement.style.transition = 'all 0.4s ease';
+            messageElement.style.opacity = '0';
+            messageElement.style.transform = 'translateY(-10px) scale(0.95)';
+            messageElement.style.maxHeight = messageElement.offsetHeight + 'px';
+            
+            // After fade animation, collapse height
+            setTimeout(() => {
+                messageElement.style.maxHeight = '0';
+                messageElement.style.marginBottom = '0';
+                messageElement.style.paddingTop = '0';
+                messageElement.style.paddingBottom = '0';
+                
+                // Remove element completely
+                setTimeout(() => {
+                    if (messageElement.parentNode) {
+                        messageElement.parentNode.removeChild(messageElement);
+                    }
+                }, 300);
+            }, 400);
+        }
     }
 
     updateUsersList(users) {
@@ -228,14 +312,17 @@ class ChatApp {
     }
 
     updateConnectionStatus(text, className) {
-        this.connectionStatus.textContent = text;
-        this.connectionStatus.className = `badge bg-light text-primary ms-2 ${className}`;
+        this.connectionStatus.innerHTML = `<i class="fas fa-circle"></i> ${text}`;
+        // Remove all status classes
+        this.connectionStatus.classList.remove('status-connected', 'status-connecting', 'status-disconnected');
+        // Add the new status class
+        this.connectionStatus.classList.add(className);
     }
 
     enableInput() {
         this.messageInput.disabled = false;
         this.sendButton.disabled = false;
-        this.messageInput.placeholder = 'Type a message';
+        this.messageInput.placeholder = 'Type your message...';
     }
 
     disableInput() {
