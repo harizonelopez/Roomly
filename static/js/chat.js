@@ -235,7 +235,7 @@ class ChatApp {
     enableInput() {
         this.messageInput.disabled = false;
         this.sendButton.disabled = false;
-        this.messageInput.placeholder = 'Type your message...';
+        this.messageInput.placeholder = 'Type a message';
     }
 
     disableInput() {
@@ -258,7 +258,7 @@ class ChatApp {
     }
 
     leaveRoom() {
-        if (confirm('Are you sure you want to leave this room?')) {
+        if (confirm('Are you sure you want to leave the room?')) {
             this.socket.emit('leave', {
                 username: this.username,
                 room: this.room
