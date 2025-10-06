@@ -4,10 +4,10 @@ import uuid
 from datetime import datetime
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'ny-secret-key'
+app.config['SECRET_KEY'] = 'Trump&&Elon-key'
 socketio = SocketIO(app, cors_allowed_origins="*")
 
-# Stored active users and rooms
+# Storage of active users and rooms
 active_users = {}
 chat_rooms = {'general': {'users': [], 'messages': []}}
 
@@ -23,11 +23,11 @@ def chat():
 
 @socketio.on('connect')
 def on_connect():
-    print(f'Client {request.sid} connected')
+    print(f'Client {request.sid} connected successfully')
 
 @socketio.on('disconnect')
 def on_disconnect():
-    print(f'Client {request.sid} disconnected')
+    print(f'Client {request.sid} disconnected successfully')
     # Remove user from active users and rooms
     if request.sid in active_users:
         user_info = active_users[request.sid]
@@ -45,7 +45,7 @@ def on_disconnect():
         emit('user_left', {
             'username': username,
             'message': f'{username} left the room',
-            'timestamp': datetime.now().strftime('%H:%M:%S')
+            'timestamp': datetime.now().strftime('%H:%M')
         }, room=room)
         
         # Update user list
@@ -74,7 +74,7 @@ def on_join(data):
     emit('user_joined', {
         'username': username,
         'message': f'{username} joined the room',
-        'timestamp': datetime.now().strftime('%H:%M:%S')
+        'timestamp': datetime.now().strftime('%H:%M')
     }, room=room)
     
     # Send recent messages to the new user
@@ -103,7 +103,7 @@ def on_leave(data):
     emit('user_left', {
         'username': username,
         'message': f'{username} left the room',
-        'timestamp': datetime.now().strftime('%H:%M:%S')
+        'timestamp': datetime.now().strftime('%H:%M')
     }, room=room)
     
     # Update user list
@@ -114,7 +114,7 @@ def handle_message(data):
     username = data['username']
     message = data['message']
     room = data['room']
-    timestamp = datetime.now().strftime('%H:%M:%S')
+    timestamp = datetime.now().strftime('%H:%M')
     
     # Create message object
     message_data = {
