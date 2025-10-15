@@ -533,6 +533,16 @@ document.addEventListener('DOMContentLoaded', () => {
     window.chatApp = new ChatApp();
 });
 
+// Prevent duplicate "user left" messages
+let lastLeftUser = null;
+
+socket.on('user_left', data => {
+    if (data.username === lastLeftUser) return; // ignore duplicate
+    lastLeftUser = data.username;
+    addMessage(`${data.username} has left the room.`);
+    setTimeout(() => lastLeftUser = null, 3000); // reset after 3s
+});
+
 // Handle page unload
 window.addEventListener('beforeunload', () => {
     if (window.chatApp && window.chatApp.socket) {
