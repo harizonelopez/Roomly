@@ -50,7 +50,7 @@
                         type="text" 
                         id="messageInput" 
                         class="message-input" 
-                        placeholder="Type your message..." 
+                        placeholder="Type your message" 
                         maxlength="200" disabled>
 
                     <button id="sendButton" class="send-button" type="button" disabled>
@@ -65,7 +65,7 @@
                         <button id="closeEmojiPicker" class="close-emoji-btn">&times;</button>
                     </div>
                     <div class="emoji-grid" id="emojiGrid">
-                        <!-- Emojis will be populated by JS -->
+                        <!-- Emojis will be populated by JS script -->
                     </div>
                 </div>
                 <div class="input-hint">
@@ -88,7 +88,7 @@
             
             <div class="sidebar-body">
                 <div id="usersList" class="users-list">
-                    <!-- Users to be added here dynamically -->
+                    <!-- Users to be dynamically added here -->
                 </div>
             </div>
             
@@ -112,7 +112,11 @@
 </div>
 
 <!-- Hidden data for JavaScript -->
-<div id="userData" data-username="{{ username }}" data-room="{{ room }}" style="display: none;"></div>
+<div id="userData" 
+     data-username="{{ username }}" 
+     data-room="{{ room }}" 
+     style="display: none;">
+</div>
 {% endblock %}
 
 {% block scripts %}
