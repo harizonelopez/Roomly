@@ -1,4 +1,4 @@
-// Chat application JavaScript
+// Chat application Js
 class ChatApp {
     constructor() {
         this.socket = null;
@@ -342,7 +342,7 @@ class ChatApp {
     enableInput() {
         this.messageInput.disabled = false;
         this.sendButton.disabled = false;
-        this.messageInput.placeholder = 'Type your message...';
+        this.messageInput.placeholder = 'Type a message';
     }
 
     disableInput() {
