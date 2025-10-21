@@ -697,10 +697,15 @@ body {
     .input-container {
         flex-direction: column;
         gap: 8px;
+        width: 100%;
     }
     
     .message-input {
         border-radius: 12px;
+        width: 100%;
+        padding: 8px 12px;
+        min-width: 0;
+        box-sizing: border-box;
     }
     
     .send-button {
