@@ -28,7 +28,7 @@
 
 ### Prerequisites
 
-- Python 3.12.3 --> installed on your system
+- Python 3.12.3 ---> preferred version
 - pip
 
 ### Setup Instructions
