@@ -2,7 +2,6 @@
 {% block title %}{{ room }} - Chatroom{% endblock %}
 {% block content %}
 <div class="row h-100 g-3">
-    <!-- Chat Messages Area -->
     <div class="col-md-9">
         <div class="chat-container">
             <div class="chat-header">
@@ -39,7 +38,6 @@
                 </div>
             </div>
                 
-            <!-- Message Input Area -->
             <div class="chat-input-area">
                 <div class="input-container">
                     <button id="emojiButton" class="emoji-button" type="button">
@@ -88,7 +86,6 @@
             
             <div class="sidebar-body">
                 <div id="usersList" class="users-list">
-                    <!-- Users to be dynamically added here -->
                 </div>
             </div>
             
@@ -118,24 +115,6 @@
      style="display: none;">
 </div>
 
-<!-- Leave Room Modal 
-<div class="modal fade" id="leaveRoomModal" tabindex="-1" aria-labelledby="leaveRoomModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="leaveRoomModalLabel">Leave Room</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        Are you sure you want to leave the room?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-danger" id="confirmLeaveBtn">Leave</button>
-      </div>
-    </div>
-  </div>
-</div> -->
 {% endblock %}
 
 {% block scripts %}

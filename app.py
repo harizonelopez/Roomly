@@ -7,7 +7,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'Trump&&Elon-key'
 socketio = SocketIO(app, cors_allowed_origins="*", async_mode='threading')
 
-# Storage of active users and rooms
+# Active users & rooms storage
 active_users = {}
 chat_rooms = {'general': {'users': [], 'messages': []}}
 
