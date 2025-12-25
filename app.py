@@ -4,7 +4,7 @@ import uuid
 from datetime import datetime
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'Trump&&Elon-key'
+app.config['SECRET_KEY'] = 'Elon&&Zack-key'
 socketio = SocketIO(app, cors_allowed_origins="*", async_mode='threading')
 
 # Active users & rooms storage
